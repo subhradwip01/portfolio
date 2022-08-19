@@ -1,12 +1,14 @@
-import { Button, Grid, IconButton, Typography, Box } from "@mui/material";
+import { Button, Grid, IconButton, Typography, Box,Link } from "@mui/material";
 import React from "react";
 import header from "../assets/header.png";
 import GitHubIcon from "@mui/icons-material/GitHub";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import { styled } from "@mui/material/styles";
+import { ABOUT } from "../data";
 const Actions = styled(Box)(({ theme }) => ({
   display: "flex",
-  gap: theme.spacing(1),
+  gap: theme.spacing(2),
+  alignItems:"center"
 }));
 const About = () => {
   return (
@@ -43,24 +45,35 @@ const About = () => {
           flexDirection="column"
         >
           <Typography variant="p" component="div" marginBottom={2}>
-            I am an aspiring CSE student who enjoys connecting real-life
-            problems with programming: be it ideas from different disciplines,
-            people from different teams, or applications from different
-            industries. If I talk about my technical skill. I know
-            JAVA,MERN.Trying to learn Blockchain Development. Every day I
-            eagerly learn new technologies. Love to contribute in open source.
-            Helping people with my kwoledge.
+            {ABOUT.description}
           </Typography>
           <Actions>
-            <Button variant="contained" color="secondary">
-              Download CV
-            </Button>
-            <IconButton>
-              <GitHubIcon />
-            </IconButton>
-            <IconButton>
-              <LinkedInIcon />
-            </IconButton>
+            <Link sx={{
+              display: "flex",
+              justifyContent:"center",
+              alignItems:"center",
+              background: theme=>theme.palette.secondary.main,
+              textDecoration:"none",
+              padding:1,
+              borderRadius:1,
+              fontWeight:700,
+              fontSize:12
+            }}
+            href={ABOUT.resumeLink}>
+              DOWNLOAD CV
+            </Link>
+            <Link href={ABOUT.githubLink}>
+              <GitHubIcon sx={{
+                  color: (theme) => theme.palette.grey.main,
+                  
+                }}/>
+            </Link>
+            <Link href={ABOUT.linkedinLink}>
+              <LinkedInIcon sx={{
+                  color: (theme) => theme.palette.grey.main,
+                  
+                }}/>
+            </Link>
           </Actions>
         </Grid>
       </Grid>
