@@ -15,8 +15,8 @@ const About = () => {
   return (
     <div id="#About">
       <motion.div
-            whileInView={{ y:[100,0],opacity: [0,1] }}
-            transition={{ duration: 1 }}>
+          whileInView={{ y:[100,0],opacity: [0,1] }}
+          transition={{ duration: 0.5 }}>
       <Typography
         variant="h3"
         textAlign="center"

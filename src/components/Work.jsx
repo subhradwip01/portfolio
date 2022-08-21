@@ -5,10 +5,12 @@ import CardHeader from "@mui/material/CardHeader";
 import CardContent from "@mui/material/CardContent";
 import { Box } from "@mui/system";
 import {WORKS} from "../data"
+import {motion} from "framer-motion"
 const Work = () => {
   
   return (
     <div id="#work">
+      <motion.div whileInView={{opacity:[0,1],y:[100,0]}} transition={{duration:0.4}}>
       <Typography
         variant="h3"
         textAlign="center"
@@ -19,8 +21,8 @@ const Work = () => {
         Work
       </Typography>
         <Box justifyContent="center" display="flex" flexDirection="column" alignItems="center">
-        {WORKS.map((work) => (
-
+        {WORKS.map((work,index) => (
+              <motion.div whileInView={{opacity:[0,1],y:[100,0]}} transition={{duration:0.4 + index/6}}>
               <Card hover sx={{maxWidth:600,marginBottom:4}}>
                 <CardHeader
                   avatar={<img src={work.logo} style={{ width: 70 }} />}
@@ -40,9 +42,10 @@ const Work = () => {
                   ))}
                 </CardContent>
               </Card>
+              </motion.div>
         ))}
         </Box>
-       
+        </motion.div>
     </div>
   );
 };
