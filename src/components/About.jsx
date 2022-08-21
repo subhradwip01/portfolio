@@ -5,6 +5,7 @@ import GitHubIcon from "@mui/icons-material/GitHub";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import { styled } from "@mui/material/styles";
 import { ABOUT } from "../data";
+import { motion } from "framer-motion";
 const Actions = styled(Box)(({ theme }) => ({
   display: "flex",
   gap: theme.spacing(2),
@@ -13,6 +14,9 @@ const Actions = styled(Box)(({ theme }) => ({
 const About = () => {
   return (
     <div id="#About">
+      <motion.div
+            whileInView={{ y:[100,0],opacity: [0,1] }}
+            transition={{ duration: 1 }}>
       <Typography
         variant="h3"
         textAlign="center"
@@ -47,7 +51,10 @@ const About = () => {
           <Typography variant="p" component="div" marginBottom={2}>
             {ABOUT.description}
           </Typography>
+          
           <Actions>
+          <motion.div whileInView={{scale:[0,1],opacity:[0,1]}}
+        transition={{duration:0.5}}>
             <Link sx={{
               display: "flex",
               justifyContent:"center",
@@ -62,21 +69,31 @@ const About = () => {
             href={ABOUT.resumeLink}>
               DOWNLOAD CV
             </Link>
+            </motion.div>
+            <motion.div whileInView={{scale:[0,1],opacity:[0,1]}}
+        transition={{duration:0.8}}>
             <Link href={ABOUT.githubLink}>
               <GitHubIcon sx={{
                   color: (theme) => theme.palette.grey.main,
                   
                 }}/>
             </Link>
+            </motion.div>
+            <motion.div whileInView={{scale:[0,1],opacity:[0,1]}}
+        transition={{duration:1}}>
+            
             <Link href={ABOUT.linkedinLink}>
               <LinkedInIcon sx={{
                   color: (theme) => theme.palette.grey.main,
                   
                 }}/>
             </Link>
+            </motion.div>
           </Actions>
+          
         </Grid>
       </Grid>
+      </motion.div>
     </div>
   );
 };
