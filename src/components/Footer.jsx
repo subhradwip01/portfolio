@@ -19,6 +19,7 @@ import email from "../assets/email.png";
 import success from '../assets/success.webp';
 import wrong from '../assets/wrong.png'
 import {CONTACT} from "../data"
+import { motion } from "framer-motion";
 
 
 const Footer = () => {
@@ -61,12 +62,15 @@ const Footer = () => {
     type:"",
     message:""})
 
+
   return (
     <div id="#contact">
+
       <Modal open={modal.open}
         onClose={handleClose}
         aria-labelledby="modal-modal-message"
         aria-describedby="modal-modal-email-message">
+          
           <Box sx={{
               position: 'absolute',
               top: '50%',
@@ -95,7 +99,12 @@ const Footer = () => {
             Close
           </Button>
           </Box>
+         
       </Modal>
+    
+      <motion.div
+          whileInView={{ y:[100,0],opacity: [0,1] }}
+          transition={{ duration: 0.3 }}>
       <Typography
         variant="h3"
         textAlign="center"
@@ -112,6 +121,8 @@ const Footer = () => {
         paddingBottom={7}
       >
         <Grid item>
+        <motion.div whileInView={{ y:[100,0],opacity: [0,1] }}
+          transition={{ duration: 0.4 }}>
           <Card
             sx={{
               p: 2,
@@ -150,6 +161,9 @@ const Footer = () => {
               </Link>
             </Box>
           </Card>
+          </motion.div>
+          <motion.div whileInView={{ y:[100,0],opacity: [0,1] }}
+          transition={{ duration: 0.5 }}>
           <Card sx={{ p: 2, borderRadius: 2, width: 310, m: 2 }}>
             <Box
               display="flex"
@@ -180,7 +194,12 @@ const Footer = () => {
               </Link>
             </Box>
           </Card>
+          </motion.div>
+
           <Box display="flex" gap={3} justifyContent="center">
+          <motion.div
+          whileInView={{ scale:[0,1],opacity: [0,1] }}
+          transition={{ duration: 0.6 }}>
             <Link href={CONTACT.gitLink}>
               <GitHubIcon
                 sx={{
@@ -189,6 +208,10 @@ const Footer = () => {
                 }}
               />
             </Link>
+            </motion.div>
+            <motion.div
+          whileInView={{ scale:[0,1],opacity: [0,1] }}
+          transition={{ duration: 0.65 }}>
             <Link href={CONTACT.linkedLink}>
               <LinkedInIcon
                 sx={{
@@ -197,6 +220,10 @@ const Footer = () => {
                 }}
               />
             </Link>
+            </motion.div>
+            <motion.div
+          whileInView={{ scale:[0,1],opacity: [0,1] }}
+          transition={{ duration: 0.7 }}>
             <Link href={CONTACT.twitterLink}>
               <TwitterIcon
                 sx={{
@@ -205,6 +232,7 @@ const Footer = () => {
                 }}
               />
             </Link>
+            </motion.div>
           </Box>
         </Grid>
         <Grid item>
@@ -220,11 +248,13 @@ const Footer = () => {
               required
               id="outlined-required"
               label="Email ID"
-              variant="filled"
+              variant="outlined"
               name="email"
               value={data.email}
+              color="secondary"
               sx={{
                 width: "30vw",
+                
               }}
               onChange={inputHandler}
             />
@@ -234,8 +264,11 @@ const Footer = () => {
               placeholder="Write Here..."
               name="message"
               value={data.message}
+              color="secondary"
               onChange={inputHandler}
-              style={{ width: "30vw", minHeight: "190px" }}
+              style={{ width: "30vw", minHeight: "190px",borderRadius:10,
+               padding:10,boxShadow:theme=>theme.palette.darkShadow,
+               }}
             />
           </Box>
           <Button variant="contained" color="secondary" onClick={submitHandler}>
@@ -243,6 +276,7 @@ const Footer = () => {
           </Button>
         </Grid>
       </Grid>
+      </motion.div>
     </div>
   );
 };
