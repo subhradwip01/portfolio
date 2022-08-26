@@ -17,7 +17,8 @@ export const theme = createTheme({
             light: "#e4e4e4",
             main: "#6b7688"
         },
-        pink: "#fddde6"
+        pink: "#fddde6",
+        darkShadow:"-1px -2px 12px -3px rgba(0,0,0,1)"
     },
     typography: {
         fontFamily: `'Open Sans', sans-serif`,

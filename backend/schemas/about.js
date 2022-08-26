@@ -14,6 +14,16 @@ export default {
       type: "file",
     },
     {
+      name: "email",
+      title: "Email",
+      type: "string",
+    },
+    {
+      name: "mobile",
+      title: "Mobile",
+      type: "string",
+    },
+    {
       name: "profilePic",
       title: "Profile Pic",
       type: "image",

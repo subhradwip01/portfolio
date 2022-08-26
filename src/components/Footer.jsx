@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import {
   Typography,
   Grid,
@@ -18,12 +18,13 @@ import mobile from "../assets/mobile.png";
 import email from "../assets/email.png";
 import success from '../assets/success.webp';
 import wrong from '../assets/wrong.png'
-import {CONTACT} from "../data"
 import { motion } from "framer-motion";
+import { client } from "../client";
 
 
 const Footer = () => {
   const [data, setData] = useState({
+    username:"",
     email: "",
     message: "",
   });
@@ -35,27 +36,66 @@ const Footer = () => {
     message:""
   });
 
+  const [about,setAbout]=useState(null)
+
+  const [loading, setLoading] = useState(false);
+
+  useEffect(()=>{
+    const query = '*[_type=="about"]';
+    client.fetch(query).then(data=>{
+   
+      setAbout(data[0])
+   
+    })
+  },[])
+
   const inputHandler = (e) => {
     setData((prevData) => ({ ...prevData, [e.target.name]: e.target.value }));
   };
 
   const submitHandler=(e)=>{
     console.log(data)
+    setLoading(true)
     e.preventDefault();
-    if(data.email===""||data.message==="") setModal({
+    if(data.email===""||data.message==="") 
+    setModal({
       open:true,
       type:wrong,
       message:"Please enter all the details!"
-    }); else
-    setModal({
-      open:true,
-      type:success,
-      message:"Thanks for sending message. I will connect with you ASAP"
-    })
-    setData({
-      email:"",
-      message:""
-    })
+    }) 
+    else{
+      const contact = {
+        _type: 'contact',
+        name: data.username,
+        email: data.email,
+        message: data.message,
+      };
+  
+      client.create(contact)
+        .then(() => {
+          
+          setModal({
+            open:true,
+            type:success,
+            message:"Thanks for sending message. I will connect with you ASAP"
+          })
+          setData({
+            username:"",
+            email:"",
+            message:""
+          })
+        })
+        .catch((err) => {
+          console.log(err)
+          setModal({
+            open:true,
+            type:wrong,
+            message:err.message
+          })
+        });
+    }
+    setLoading(false);
+    
   }
 
   const handleClose=()=>setModal({open:false,
@@ -148,7 +188,7 @@ const Footer = () => {
                 }}
               />
               <Link
-                href={"tel:"+CONTACT.mobile}
+                href={"tel:"+about?.mobile}
                 sx={{
                   color: (theme) => theme.palette.grey.dark,
                   fontWeight: 700,
@@ -157,7 +197,7 @@ const Footer = () => {
                   },
                 }}
               >
-                {CONTACT.mobile}
+                {about?.mobile}
               </Link>
             </Box>
           </Card>
@@ -181,7 +221,7 @@ const Footer = () => {
                 }}
               />
               <Link
-                href={"mailto: "+ CONTACT.email}
+                href={"mailto: "+ about?.email}
                 sx={{
                   color: (theme) => theme.palette.grey.dark,
                   fontWeight: 700,
@@ -190,7 +230,7 @@ const Footer = () => {
                   },
                 }}
               >
-                {CONTACT.email}
+                {about?.email}
               </Link>
             </Box>
           </Card>
@@ -200,7 +240,7 @@ const Footer = () => {
           <motion.div
           whileInView={{ scale:[0,1],opacity: [0,1] }}
           transition={{ duration: 0.6 }}>
-            <Link href={CONTACT.gitLink}>
+            <Link href={about?.socialHandle[0].url}>
               <GitHubIcon
                 sx={{
                   color: (theme) => theme.palette.grey.dark,
@@ -212,7 +252,7 @@ const Footer = () => {
             <motion.div
           whileInView={{ scale:[0,1],opacity: [0,1] }}
           transition={{ duration: 0.65 }}>
-            <Link href={CONTACT.linkedLink}>
+            <Link href={about?.socialHandle[1].url}>
               <LinkedInIcon
                 sx={{
                   color: (theme) => theme.palette.grey.dark,
@@ -224,7 +264,7 @@ const Footer = () => {
             <motion.div
           whileInView={{ scale:[0,1],opacity: [0,1] }}
           transition={{ duration: 0.7 }}>
-            <Link href={CONTACT.twitterLink}>
+            <Link href={about?.socialHandle[2].url}>
               <TwitterIcon
                 sx={{
                   color: (theme) => theme.palette.grey.dark,
@@ -244,6 +284,20 @@ const Footer = () => {
             gap={3}
             marginBottom={3}
           >
+            <TextField
+              required
+              id="outlined-required"
+              label="Name"
+              variant="outlined"
+              name="username"
+              value={data.username}
+              color="secondary"
+              sx={{
+                width: "30vw",
+                
+              }}
+              onChange={inputHandler}
+            />
             <TextField
               required
               id="outlined-required"
@@ -271,7 +325,7 @@ const Footer = () => {
                }}
             />
           </Box>
-          <Button variant="contained" color="secondary" onClick={submitHandler}>
+          <Button variant="contained" color="secondary" onClick={submitHandler} disabled={loading}>
             Submit
           </Button>
         </Grid>

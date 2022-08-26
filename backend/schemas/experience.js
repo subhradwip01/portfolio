@@ -45,7 +45,7 @@ export default{
                             title:'startDate',
                             type:'date',
                             options: {
-                                dateFormat: 'MM-DD',
+                                dateFormat: 'YYYY-MM',
                                 calendarTodayLabel: 'Today'
                             }
                         },
@@ -54,7 +54,7 @@ export default{
                             title:'endtDate',
                             type:'date',
                             options: {
-                                dateFormat: 'MM-DD',
+                                dateFormat: 'YYYY-MM',
                                 calendarTodayLabel: 'Today'
                             }
                         }

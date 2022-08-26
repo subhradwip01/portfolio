@@ -62,9 +62,10 @@ const Header = () => {
             >
               This is Subhradwip
             </Typography>
-            <Typography variant="h6">
-              <div style={{ marginRight: "20px" }}>Web Developer </div>
-              <div> Open Source Contributor </div>
+            <Typography variant="h6" sx={{ marginRight: "20px",color: "transparent",
+    strokeWidth: "1px",
+    strokeColor: theme=>theme.palette.secondary }}>
+                WEB DEVELOPER
             </Typography>
             <motion.div variants={scaleVariants}
       whileInView={scaleVariants.whileInView}>

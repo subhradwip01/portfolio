@@ -1,17 +1,30 @@
-import { Button, Grid, IconButton, Typography, Box,Link } from "@mui/material";
-import React from "react";
-import header from "../assets/header.png";
+import {  Grid, Typography, Box,Link } from "@mui/material";
+import React,{useState,useEffect} from "react";
 import GitHubIcon from "@mui/icons-material/GitHub";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import { styled } from "@mui/material/styles";
-import { ABOUT } from "../data";
 import { motion } from "framer-motion";
+import { urlFor, client,getUrlFromId } from "../client";
+
+
 const Actions = styled(Box)(({ theme }) => ({
   display: "flex",
   gap: theme.spacing(2),
   alignItems:"center"
 }));
 const About = () => {
+  const [about,setAbout]=useState(null)
+
+  useEffect(()=>{
+    const query = '*[_type=="about"]';
+    client.fetch(query).then(data=>{
+   
+      setAbout(data[0])
+   
+    })
+  },[])
+
+  console.log(about)
   return (
     <div id="#About">
       <motion.div
@@ -25,7 +38,7 @@ const About = () => {
       >
         About
       </Typography>
-      <Grid
+      {about && <Grid
         container
         justifyContent="center"
         paddingRight={10}
@@ -33,10 +46,10 @@ const About = () => {
       >
         <Grid item xs={12} md={5} textAlign="center">
           <img
-            src={header}
+            src={urlFor(about.profilePic)}
             alt="profile"
             srcset=""
-            style={{ width: "300px" }}
+            style={{ width: "300px" ,borderRadius:25 }}
           />
         </Grid>
         <Grid
@@ -49,7 +62,7 @@ const About = () => {
           flexDirection="column"
         >
           <Typography variant="p" component="div" marginBottom={2}>
-            {ABOUT.description}
+          {about?.description}
           </Typography>
           
           <Actions>
@@ -66,13 +79,14 @@ const About = () => {
               fontWeight:700,
               fontSize:12
             }}
-            href={ABOUT.resumeLink}>
+            href={getUrlFromId(about.resumeLink.asset._ref)}
+            target="_blank">
               DOWNLOAD CV
             </Link>
             </motion.div>
             <motion.div whileInView={{scale:[0,1],opacity:[0,1]}}
-        transition={{duration:0.8}}>
-            <Link href={ABOUT.githubLink}>
+        transition={{duration:0.6}}>
+            <Link href={about.socialHandle[0].url} target='_blank'>
               <GitHubIcon sx={{
                   color: (theme) => theme.palette.grey.main,
                   
@@ -80,9 +94,9 @@ const About = () => {
             </Link>
             </motion.div>
             <motion.div whileInView={{scale:[0,1],opacity:[0,1]}}
-        transition={{duration:1}}>
+        transition={{duration:0.7}}>
             
-            <Link href={ABOUT.linkedinLink}>
+            <Link href={about.socialHandle[1].url} target='_blank'>
               <LinkedInIcon sx={{
                   color: (theme) => theme.palette.grey.main,
                   
@@ -92,7 +106,7 @@ const About = () => {
           </Actions>
           
         </Grid>
-      </Grid>
+      </Grid>}
       </motion.div>
     </div>
   );
