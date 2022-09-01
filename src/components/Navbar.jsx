@@ -1,6 +1,8 @@
 import { AppBar, Toolbar, Typography } from '@mui/material'
-import React from 'react'
+import React, { useState } from 'react'
 import { styled } from "@mui/material/styles"
+
+
 const NavBar=styled(AppBar)(({theme})=>({
     backgroundColor: theme.primary, 
     padding: theme.spacing(1.4),
@@ -28,7 +30,8 @@ const MenuItemLink=styled('a')(({theme})=>({
    } 
 }))
 
-const Navbar = () => {
+const Navbar = ({mobileView}) => {
+  const [showMenu,setShowMenu]=useState(false)
   return (
    <NavBar>
     <Toolbar sx={{
@@ -38,7 +41,7 @@ const Navbar = () => {
             Subhradwip
         </Typography>
         <Menu>
-        {['Home','About','Skills','Work','Experince'].map((item=>(
+        {!mobileView && ['Home','About','Skills','Work','Experince'].map((item=>(
             <MenuItem key={`link-#${item}`}>
                <MenuItemLink href={`#${item}`}>{item}</MenuItemLink> 
             </MenuItem>
