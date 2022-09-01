@@ -41,8 +41,10 @@ const About = () => {
       {about && <Grid
         container
         justifyContent="center"
-        paddingRight={10}
-        paddingLeft={10}
+        
+        alignItems="center"
+        
+    
       >
         <Grid item xs={12} md={5} textAlign="center">
           <img
@@ -60,6 +62,8 @@ const About = () => {
           justifyContent="center"
           display="flex"
           flexDirection="column"
+          paddingRight={3}
+          paddingLeft={3}
         >
           <Typography variant="p" component="div" marginBottom={2}>
           {about?.description}

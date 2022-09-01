@@ -81,6 +81,12 @@ const Projects = () => {
             textColor="secondary"
             indicatorColor="secondary"
             aria-label="secondary project label"
+            width="50%"
+            sx={{
+              '& .MuiTabs-flexContainer': {
+                overflowX:"auto"
+              },
+            }}
           >
             <Tab value="all" label="All" />
             <Tab value="react" label="React" />
@@ -96,6 +102,8 @@ const Projects = () => {
           transition={{ duration: 0.5 }}
           container
           justifyContent="center"
+          alignItems="center"
+          gap={5}
         >
           {allprojects &&
             currentPageProjects?.map((project, index) => (
@@ -106,7 +114,7 @@ const Projects = () => {
                 }}
                 transition={{ duration: 0.5 + index / 3, ease: "easeInOut" }}
               >
-                <Grid item marginTop={5} marginRight={5}>
+                <Grid item marginTop={5} display="flex" >
                   <Card
                     sx={{
                       maxWidth: 300,

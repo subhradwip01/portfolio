@@ -39,14 +39,14 @@ const MobileMenu = () => {
     <Box
       sx={{
         position: "fixed",
-        bottom: "10px",
+        bottom: "50px",
         zIndex: 99,
         width: "100%",
         display: "flex",
         flexDirection: "column",
         alignItems: "flex-end",
         marginRight: 5,
-        paddingRight: "10px",
+        paddingRight: "30px",
       }}
     >
       {showMenu && (
