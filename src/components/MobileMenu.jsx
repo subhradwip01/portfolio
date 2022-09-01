@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Box, Link } from "@mui/material";
+import { Box, Link, Tooltip } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import HomeIcon from "@mui/icons-material/Home";
 import PersonIcon from "@mui/icons-material/Person";
@@ -34,7 +34,25 @@ const MobileMenu = () => {
   const handleClose = () => {
     setShowMenu((prev) => !prev);
   };
-  const handleChange = () => {};
+  const navMenu=[{
+    icon:<HomeIcon />,
+    link:"Home"
+  },{
+    icon:<PersonIcon />,
+    link:"About"
+  },{
+    icon:<CodeIcon />,
+    link:"Skills"
+  },{
+    icon:<WorkIcon />,
+    link:"Work"
+  },{
+    icon:<DevicesIcon/>,
+    link:"Projects"
+  },{
+    icon:<CallIcon/>,
+    link:"Contact"
+  }]
   return (
     <Box
       sx={{
@@ -51,27 +69,22 @@ const MobileMenu = () => {
     >
       {showMenu && (
         <Menu>
-          {[
-            <HomeIcon />,
-            <PersonIcon />,
-            <CodeIcon />,
-            <WorkIcon />,
-            <DevicesIcon />,
-            <CallIcon />,
-          ].map((item, index) => (
+          {navMenu.map((item, index) => (
             <motion.div
               animate={{ scale: [0, 1], opacity: [0, 1] }}
               transition={{ duration: 0.4 + index / 8 }}
             >
-              <MenuItem key={`link-#${item}`} onClick={handleClose}>
+              
+              <MenuItem key={`link-#${item.link}`} onClick={handleClose}>
                 <Link
-                  href={`#${item}`}
+                  href={`#${item.link}`}
                   sx={{ textDecoration: "none" }}
                   color="white"
                 >
-                  {item}
+                  {item.icon}
                 </Link>
               </MenuItem>
+              
             </motion.div>
           ))}
         </Menu>
