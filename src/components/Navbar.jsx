@@ -41,7 +41,7 @@ const Navbar = ({mobileView}) => {
             Subhradwip
         </Typography>
         <Menu>
-        {!mobileView && ['Home','About','Skills','Work','Experince'].map((item=>(
+        {!mobileView && ['Home','About','Skills','Work','Projects','Contact'].map((item=>(
             <MenuItem key={`link-#${item}`}>
                <MenuItemLink href={`#${item}`}>{item}</MenuItemLink> 
             </MenuItem>

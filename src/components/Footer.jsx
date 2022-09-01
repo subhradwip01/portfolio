@@ -22,7 +22,7 @@ import { motion } from "framer-motion";
 import { client } from "../client";
 
 
-const Footer = () => {
+const Footer = ({mobileView}) => {
   const [data, setData] = useState({
     username:"",
     email: "",
@@ -104,19 +104,22 @@ const Footer = () => {
 
 
   return (
-    <div id="#contact">
+    <div id="#Contact">
 
       <Modal open={modal.open}
         onClose={handleClose}
         aria-labelledby="modal-modal-message"
-        aria-describedby="modal-modal-email-message">
-          
+        aria-describedby="modal-modal-email-message"
+
+        >
+         <motion.div animate={{  opacity:[0,1]}}
+              transition={{ duration: 0.4 }}>
           <Box sx={{
               position: 'absolute',
               top: '50%',
-              left: '50%',
+              left:mobileView ? '43%':'50%',
               transform: 'translate(-50%, -50%)',
-              width: 400,
+              width: mobileView ? 320 : 400,
               bgcolor: 'background.paper',
               border:theme=> '2px solid '+theme.pink,
               borderRadius:4,
@@ -139,7 +142,7 @@ const Footer = () => {
             Close
           </Button>
           </Box>
-         
+          </motion.div> 
       </Modal>
     
       <motion.div
@@ -293,7 +296,11 @@ const Footer = () => {
               value={data.username}
               color="secondary"
               sx={{
-                width: "30vw",
+                width: {
+                  md:"30vw",
+                  xs:"90vw"
+                },
+                
                 
               }}
               onChange={inputHandler}
@@ -307,7 +314,10 @@ const Footer = () => {
               value={data.email}
               color="secondary"
               sx={{
-                width: "30vw",
+                width: {
+                  md:"30vw",
+                  xs:"90vw"
+                },
                 
               }}
               onChange={inputHandler}
@@ -320,8 +330,8 @@ const Footer = () => {
               value={data.message}
               color="secondary"
               onChange={inputHandler}
-              style={{ width: "30vw", minHeight: "190px",borderRadius:10,
-               padding:10,boxShadow:theme=>theme.palette.darkShadow,
+              style={{ width:mobileView ? "90vw" : "30vw", minHeight: "190px",borderRadius:10,
+               
                }}
             />
           </Box>

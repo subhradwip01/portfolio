@@ -29,7 +29,7 @@ const Skills = () => {
           <Grid item>
             <motion.div whileInView={{scale:[0,1],opacity:[0,1]}} transition={{duration:0.2 + index/5}}>
             <Tooltip title={skill.name}>
-            <img src={urlFor(skill.img)} alt="logo" style={{width:"100px"}}/>
+            <img src={urlFor(skill.img)} alt="logo" style={{width:"100px",cursor:"pointer"}}/>
             </Tooltip>
             </motion.div>
           </Grid>
