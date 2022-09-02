@@ -56,13 +56,17 @@ const Footer = ({mobileView}) => {
   const submitHandler=(e)=>{
     console.log(data)
     setLoading(true)
+    console.log(loading)
     e.preventDefault();
     if(data.email===""||data.message==="") 
-    setModal({
+    {
+      setModal({
       open:true,
       type:wrong,
       message:"Please enter all the details!"
     }) 
+    setLoading(false);
+    }
     else{
       const contact = {
         _type: 'contact',
@@ -84,6 +88,8 @@ const Footer = ({mobileView}) => {
             email:"",
             message:""
           })
+          setLoading(false);
+
         })
         .catch((err) => {
           console.log(err)
@@ -92,9 +98,9 @@ const Footer = ({mobileView}) => {
             type:wrong,
             message:err.message
           })
+          setLoading(false);
         });
     }
-    setLoading(false);
     
   }
 
@@ -335,8 +341,12 @@ const Footer = ({mobileView}) => {
                }}
             />
           </Box>
-          <Button variant="contained" color="secondary" onClick={submitHandler} disabled={loading}>
-            Submit
+          <Button variant="contained" color="secondary" onClick={submitHandler} disabled={loading} sx={{
+            '& .Mui-disabled':{
+              cursor: "not-allowed"
+            }
+          }}>
+            {!loading ?  "Submit" : "Submitting.."}
           </Button>
         </Grid>
       </Grid>

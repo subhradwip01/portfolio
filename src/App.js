@@ -7,15 +7,23 @@ import Work from "./components/Work";
 import Projects from "./components/Projects";
 import Footer from "./components/Footer";
 import MobileMenu from "./components/MobileMenu";
+import WifiLoader from "./components/WifiLoader";
 import {useState,useEffect} from "react"
 function App() {
   const [mobileView,setMobileView] = useState(false);
-
+  const [isLoading,setIsLoading]=useState(false);
   useEffect(() => {
     if(window.innerWidth<=768){
       setMobileView(true)
     }
   }, [])
+
+  useEffect(()=>{
+    setIsLoading(true);
+    setTimeout(()=>{
+      setIsLoading(false)
+    },5000)
+  },[])
 
   window.addEventListener("resize", ()=>{
     if(window.innerWidth<=768){
@@ -24,6 +32,8 @@ function App() {
   });
   
 
+ 
+  if(isLoading) return <WifiLoader/>
 
   return (
     <div className="App">
