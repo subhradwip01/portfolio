@@ -58,7 +58,6 @@ const MobileMenu = () => {
       sx={{
         position: "fixed",
         bottom: "50px",
-        zIndex: 99,
         width: "100%",
         display: "flex",
         flexDirection: "column",
