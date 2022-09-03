@@ -249,7 +249,7 @@ const Footer = ({mobileView}) => {
           <motion.div
           whileInView={{ scale:[0,1],opacity: [0,1] }}
           transition={{ duration: 0.6 }}>
-            <Link href={about?.socialHandle[0].url}>
+            <Link href={about?.socialHandle[0].url} target="_blank">
               <GitHubIcon
                 sx={{
                   color: (theme) => theme.palette.grey.dark,
@@ -261,7 +261,7 @@ const Footer = ({mobileView}) => {
             <motion.div
           whileInView={{ scale:[0,1],opacity: [0,1] }}
           transition={{ duration: 0.65 }}>
-            <Link href={about?.socialHandle[1].url}>
+            <Link href={about?.socialHandle[1].url} target="_blank">
               <LinkedInIcon
                 sx={{
                   color: (theme) => theme.palette.grey.dark,
@@ -273,7 +273,7 @@ const Footer = ({mobileView}) => {
             <motion.div
           whileInView={{ scale:[0,1],opacity: [0,1] }}
           transition={{ duration: 0.7 }}>
-            <Link href={about?.socialHandle[2].url}>
+            <Link href={about?.socialHandle[2].url} target="_blank">
               <TwitterIcon
                 sx={{
                   color: (theme) => theme.palette.grey.dark,
