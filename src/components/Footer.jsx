@@ -54,10 +54,10 @@ const Footer = ({mobileView}) => {
   };
 
   const submitHandler=(e)=>{
+    e.preventDefault()
     console.log(data)
     setLoading(true)
     console.log(loading)
-    e.preventDefault();
     if(data.email===""||data.message==="") 
     {
       setModal({
@@ -341,13 +341,22 @@ const Footer = ({mobileView}) => {
                }}
             />
           </Box>
-          <Button variant="contained" color="secondary" onClick={submitHandler} disabled={loading} sx={{
+          {!loading && <Button variant="contained" color="secondary" onClick={submitHandler} sx={{
             '& .Mui-disabled':{
               cursor: "not-allowed"
             }
           }}>
-            {!loading ?  "Submit" : "Submitting.."}
+             Submit
+          </Button>}
+         {loading && 
+<Button variant="contained" color="secondary" onClick={submitHandler} disabled sx={{
+            '& .Mui-disabled':{
+              cursor: "not-allowed"
+            }
+          }}>
+            Submitting..
           </Button>
+}
         </Grid>
       </Grid>
       </motion.div>
