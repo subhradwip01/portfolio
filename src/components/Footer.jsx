@@ -96,7 +96,7 @@ const Footer = ({mobileView}) => {
           setModal({
             open:true,
             type:wrong,
-            message:err.message
+            message:"Sorry! Unable to send message. Try Later"
           })
           setLoading(false);
         });
@@ -341,22 +341,9 @@ const Footer = ({mobileView}) => {
                }}
             />
           </Box>
-          {!loading && <Button variant="contained" color="secondary" onClick={submitHandler} sx={{
-            '& .Mui-disabled':{
-              cursor: "not-allowed"
-            }
-          }}>
-             Submit
-          </Button>}
-         {loading && 
-<Button variant="contained" color="secondary" onClick={submitHandler} disabled sx={{
-            '& .Mui-disabled':{
-              cursor: "not-allowed"
-            }
-          }}>
-            Submitting..
+          <Button variant="contained" color="secondary" onClick={submitHandler} disabled={loading}>
+            {!loading ?  "Submit" : "Submitting.."}
           </Button>
-}
         </Grid>
       </Grid>
       </motion.div>
