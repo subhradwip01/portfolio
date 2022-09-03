@@ -1,5 +1,5 @@
 import { AppBar, Toolbar, Typography } from '@mui/material'
-import React, {ReactDOM } from 'react'
+import React from 'react'
 import { styled } from "@mui/material/styles"
 
 
@@ -31,10 +31,7 @@ const MenuItemLink=styled('a')(({theme})=>({
 }))
 
 const Navbar = ({mobileView}) => {
-    function handleScroll(id){
-        const item = ReactDOM.findDOMNode(this.refs[id]);
-        window.scrollTo(item.offsetTop);
-    }
+    
   return (
    <NavBar>
     <Toolbar sx={{
