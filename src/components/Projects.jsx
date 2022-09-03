@@ -155,13 +155,13 @@ const Projects = () => {
                       </Box>
                       <Box display="flex" flexWrap="wrap">
                         <IconButton>
-                          <a href={project.codeLink}>
+                          <a href={project.codeLink} target="_blank">
                             <GitHubIcon />
                           </a>
                         </IconButton>
                         {project.projectLink && (
                           <IconButton>
-                            <a href={project.projectLink}>
+                            <a href={project.projectLink} target="_blank">
                               <LanguageIcon />
                             </a>
                           </IconButton>
