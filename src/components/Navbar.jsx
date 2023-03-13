@@ -1,7 +1,7 @@
 import { AppBar, Toolbar, Typography } from '@mui/material'
 import React from 'react'
 import { styled } from "@mui/material/styles"
-
+import sdark from "../assets/subhradwip-dark.png"
 
 const NavBar=styled(AppBar)(({theme})=>({
     backgroundColor: theme.primary, 
@@ -30,6 +30,13 @@ const MenuItemLink=styled('a')(({theme})=>({
    } 
 }))
 
+const Logo = styled('div')(()=>({
+    marginLeft:"2rem",
+    "&>img":{
+        width:"12%"
+    }
+}))
+
 const Navbar = ({mobileView}) => {
     
   return (
@@ -37,9 +44,9 @@ const Navbar = ({mobileView}) => {
     <Toolbar sx={{
         justifyContent:"space-between"
     }}>
-        <Typography variant="h6">
-            Subhradwip
-        </Typography>
+        <Logo>
+            <img src={sdark}/>
+        </Logo>
         <Menu>
         {!mobileView && ['Home','About','Skills','Work','Projects','Contact'].map((item=>(
             <MenuItem key={`link-#${item}`}>
