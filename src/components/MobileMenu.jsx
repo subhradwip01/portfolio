@@ -64,6 +64,7 @@ const MobileMenu = () => {
         alignItems: "flex-end",
         marginRight: 5,
         paddingRight: "30px",
+        zIndex:2000
       }}
     >
       {showMenu && (

@@ -30,10 +30,10 @@ const MenuItemLink=styled('a')(({theme})=>({
    } 
 }))
 
-const Logo = styled('div')(()=>({
-    marginLeft:"2rem",
+const Logo = styled('div')(({mobileView})=>({
+    marginLeft: mobileView ? "0.1rem" : "2rem",
     "&>img":{
-        width:"12%"
+        width:mobileView? "40%" : "12%"
     }
 }))
 
@@ -44,7 +44,7 @@ const Navbar = ({mobileView}) => {
     <Toolbar sx={{
         justifyContent:"space-between"
     }}>
-        <Logo>
+        <Logo mobileView={mobileView}>
             <img src={sdark}/>
         </Logo>
         <Menu>
