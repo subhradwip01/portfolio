@@ -1,11 +1,9 @@
-import React, { useState,useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Typography,
   Grid,
   TextField,
-  Card,
   Box,
-  CardMedia,
   Link,
   TextareaAutosize,
   Button,
@@ -14,14 +12,14 @@ import {
 import GitHubIcon from "@mui/icons-material/GitHub";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import TwitterIcon from "@mui/icons-material/Twitter";
-import mobile from "../assets/mobile.png";
-import email from "../assets/email.png";
-import success from '../assets/success.webp';
-import wrong from '../assets/wrong.png'
+import success from "../assets/success.webp";
+import wrong from "../assets/wrong.png";
 import { motion } from "framer-motion";
 import { client } from "../client";
 import EarthCanvas from "./Models/Earth";
-
+import MailIcon from "@mui/icons-material/Mail";
+import CallIcon from "@mui/icons-material/Call";
+import emailjs from "@emailjs/browser";
 const slideIn = (direction, type, delay, duration) => {
   return {
     hidden: {
@@ -41,154 +39,157 @@ const slideIn = (direction, type, delay, duration) => {
   };
 };
 
-const Footer = ({mobileView}) => {
+const Footer = ({ mobileView }) => {
   const [data, setData] = useState({
-    username:"",
+    username: "",
     email: "",
     message: "",
   });
 
-
-  const [modal,setModal]=useState({
-    open:false,
-    type:"",
-    message:""
+  const [modal, setModal] = useState({
+    open: false,
+    type: "",
+    message: "",
   });
 
-  const [about,setAbout]=useState(null)
+  const [about, setAbout] = useState(null);
 
   const [loading, setLoading] = useState(false);
 
-  useEffect(()=>{
+  useEffect(() => {
     const query = '*[_type=="about"]';
-    client.fetch(query).then(data=>{
-   
-      setAbout(data[0])
-   
-    })
-  },[])
+    client.fetch(query).then((data) => {
+      setAbout(data[0]);
+    });
+  }, []);
 
   const inputHandler = (e) => {
     setData((prevData) => ({ ...prevData, [e.target.name]: e.target.value }));
   };
 
-  const submitHandler=(e)=>{
-    e.preventDefault()
-    console.log(data)
-    setLoading(true)
-    console.log(loading)
-    if(data.email===""||data.message==="") 
-    {
+  const submitHandler = (e) => {
+    e.preventDefault();
+    console.log(data);
+    setLoading(true);
+    console.log(loading);
+    if (data.email === "" || data.message === "") {
       setModal({
-      open:true,
-      type:wrong,
-      message:"Please enter all the details!"
-    }) 
-    setLoading(false);
-    }
-    else{
+        open: true,
+        type: wrong,
+        message: "Please enter all the details!",
+      });
+      setLoading(false);
+    } else {
       const contact = {
-        _type: 'contact',
+        _type: "contact",
         name: data.username,
         email: data.email,
         message: data.message,
       };
-  
-      client.create(contact)
-        .then(() => {
-          
-          setModal({
-            open:true,
-            type:success,
-            message:"Thanks for sending message. I will connect with you ASAP"
-          })
-          setData({
-            username:"",
-            email:"",
-            message:""
-          })
-          setLoading(false);
 
+      client
+        .create(contact)
+        .then(() => {
+          setModal({
+            open: true,
+            type: success,
+            message: "Thanks for sending message. I will connect with you ASAP",
+          });
+          setData({
+            username: "",
+            email: "",
+            message: "",
+          });
+          setLoading(false);
         })
         .catch((err) => {
-          console.log(err)
+          console.log(err);
           setModal({
-            open:true,
-            type:wrong,
-            message:"Sorry! Unable to send message. Try Later"
-          })
+            open: true,
+            type: wrong,
+            message: "Sorry! Unable to send message. Try Later",
+          });
           setLoading(false);
         });
     }
-    
-  }
+  };
 
-  const handleClose=()=>setModal({open:false,
-    type:"",
-    message:""})
-
+  const handleClose = () => setModal({ open: false, type: "", message: "" });
 
   return (
     <div id="#Contact">
-
-      <Modal open={modal.open}
+      <Modal
+        open={modal.open}
         onClose={handleClose}
         aria-labelledby="modal-modal-message"
         aria-describedby="modal-modal-email-message"
-
+      >
+        <motion.div
+          animate={{ opacity: [0, 1] }}
+          transition={{ duration: 0.4 }}
         >
-         <motion.div animate={{  opacity:[0,1]}}
-              transition={{ duration: 0.4 }}>
-          <Box sx={{
-              position: 'absolute',
-              top: '50%',
-              left:mobileView ? '43%':'50%',
-              transform: 'translate(-50%, -50%)',
+          <Box
+            sx={{
+              position: "absolute",
+              top: "50%",
+              left: mobileView ? "43%" : "50%",
+              transform: "translate(-50%, -50%)",
               width: mobileView ? 320 : 400,
-              bgcolor: 'background.paper',
-              border:theme=> '2px solid '+theme.pink,
-              borderRadius:4,
+              bgcolor: "background.paper",
+              border: (theme) => "2px solid " + theme.pink,
+              borderRadius: 4,
               boxShadow: 24,
               p: 4,
               display: "flex",
-              flexDirection:"column",
-              justifyContent:"center",
-              alignItems:"center",
-              margin:3
-            
-          }} >
-            <img src={modal.type} alt="logo" style={
-              {
-                width:"150px"
-              }
-            } />
-            <Typography textAlign="center" variant="h5" marginTop={3} marginBottom={2} fontWeight={700}>{modal.message}</Typography>
+              flexDirection: "column",
+              justifyContent: "center",
+              alignItems: "center",
+              margin: 3,
+            }}
+          >
+            <img
+              src={modal.type}
+              alt="logo"
+              style={{
+                width: "150px",
+              }}
+            />
+            <Typography
+              textAlign="center"
+              variant="h5"
+              marginTop={3}
+              marginBottom={2}
+              fontWeight={700}
+            >
+              {modal.message}
+            </Typography>
             <Button variant="contained" color="secondary" onClick={handleClose}>
-            Close
-          </Button>
+              Close
+            </Button>
           </Box>
-          </motion.div> 
+        </motion.div>
       </Modal>
-    
+
       <motion.div
-          whileInView={{ y:[100,0],opacity: [0,1] }}
-          transition={{ duration: 0.3 }}>
-      <Typography
-        variant="h3"
-        textAlign="center"
-        fontWeight={700}
-        marginBottom={5}
-        marginTop={10}
+        whileInView={{ y: [100, 0], opacity: [0, 1] }}
+        transition={{ duration: 0.3 }}
       >
-        <span style={{ color: "#313bac" }}>Contact</span> with me
-      </Typography>
-      <Grid
-        container
-        justifyContent="space-around"
-        alignItems="center"
-        paddingBottom={7}
-      >
-        {/* <Grid item>
+        <Typography
+          variant="h3"
+          textAlign="center"
+          fontWeight={700}
+          marginBottom={5}
+          marginTop={10}
+        >
+          <span style={{ color: "#313bac" }}>Contact</span> with me
+        </Typography>
+        <Grid
+          container
+          justifyContent="space-around"
+          alignItems="center"
+          paddingBottom={7}
+        >
+          {/* <Grid item>
         <motion.div whileInView={{ y:[100,0],opacity: [0,1] }}
           transition={{ duration: 0.4 }}>
           <Card
@@ -303,78 +304,172 @@ const Footer = ({mobileView}) => {
             </motion.div>
           </Box>
         </Grid> */}
-        
-        <Grid item>
+
+          <Grid item>
+            <Box
+              display="flex"
+              flexDirection="column"
+              justifyContent="center"
+              alignItems="center"
+              gap={3}
+              marginBottom={3}
+            >
+              <TextField
+                required
+                id="outlined-required"
+                label="Name"
+                variant="outlined"
+                name="username"
+                value={data.username}
+                color="secondary"
+                sx={{
+                  width: {
+                    md: "30vw",
+                    xs: "90vw",
+                  },
+                }}
+                onChange={inputHandler}
+              />
+              <TextField
+                required
+                id="outlined-required"
+                label="Email ID"
+                variant="outlined"
+                name="email"
+                value={data.email}
+                color="secondary"
+                sx={{
+                  width: {
+                    md: "30vw",
+                    xs: "90vw",
+                  },
+                }}
+                onChange={inputHandler}
+              />
+              <TextareaAutosize
+                maxRows={4}
+                aria-label="maximum height"
+                placeholder="Write Here..."
+                name="message"
+                value={data.message}
+                color="secondary"
+                onChange={inputHandler}
+                style={{
+                  width: mobileView ? "90vw" : "30vw",
+                  minHeight: "190px",
+                  borderRadius: 10,
+                }}
+              />
+            </Box>
+            <Button
+              variant="contained"
+              color="secondary"
+              onClick={submitHandler}
+              disabled={loading}
+            >
+              {!loading ? "Submit" : "Submitting.."}
+            </Button>
+          </Grid>
+          <Grid item display="flex" justifyContent="center" alignItems="center">
+            <motion.div
+              variants={slideIn("right", "tween", 0.2, 1)}
+              style={{
+                height: "400px",
+              }}
+            >
+              <EarthCanvas />
+            </motion.div>
+          </Grid>
+        </Grid>
+        <Box
+          display="flex"
+          flexDirection="column"
+          alignItems="center"
+          gap={1}
+          justifyContent="center"
+          marginBottom={2}
+        >
           <Box
             display="flex"
-            flexDirection="column"
-            justifyContent="center"
             alignItems="center"
             gap={3}
-            marginBottom={3}
+            justifyContent="center"
           >
-            <TextField
-              required
-              id="outlined-required"
-              label="Name"
-              variant="outlined"
-              name="username"
-              value={data.username}
-              color="secondary"
-              sx={{
-                width: {
-                  md:"30vw",
-                  xs:"90vw"
-                },
-                
-                
-              }}
-              onChange={inputHandler}
-            />
-            <TextField
-              required
-              id="outlined-required"
-              label="Email ID"
-              variant="outlined"
-              name="email"
-              value={data.email}
-              color="secondary"
-              sx={{
-                width: {
-                  md:"30vw",
-                  xs:"90vw"
-                },
-                
-              }}
-              onChange={inputHandler}
-            />
-            <TextareaAutosize
-              maxRows={4}
-              aria-label="maximum height"
-              placeholder="Write Here..."
-              name="message"
-              value={data.message}
-              color="secondary"
-              onChange={inputHandler}
-              style={{ width:mobileView ? "90vw" : "30vw", minHeight: "190px",borderRadius:10,
-               
-               }}
-            />
+            <motion.div
+              whileInView={{ scale: [0, 1], opacity: [0, 1] }}
+              transition={{ duration: 0.6 }}
+            >
+              <Link href={"tel:" + about?.mobile} target="_blank">
+                <CallIcon
+                  sx={{
+                    color: (theme) => theme.palette.grey.dark,
+                    fontSize: 40,
+                  }}
+                />
+              </Link>
+            </motion.div>
+            <motion.div
+              whileInView={{ scale: [0, 1], opacity: [0, 1] }}
+              transition={{ duration: 0.6 }}
+            >
+              <Link href={about?.socialHandle[0].url} target="_blank">
+                <GitHubIcon
+                  sx={{
+                    color: (theme) => theme.palette.grey.dark,
+                    fontSize: 40,
+                  }}
+                />
+              </Link>
+            </motion.div>
+            <motion.div
+              whileInView={{ scale: [0, 1], opacity: [0, 1] }}
+              transition={{ duration: 0.65 }}
+            >
+              <Link href={about?.socialHandle[1].url} target="_blank">
+                <LinkedInIcon
+                  sx={{
+                    color: (theme) => theme.palette.grey.dark,
+                    fontSize: 40,
+                  }}
+                />
+              </Link>
+            </motion.div>
+            <motion.div
+              whileInView={{ scale: [0, 1], opacity: [0, 1] }}
+              transition={{ duration: 0.7 }}
+            >
+              <Link href={about?.socialHandle[2].url} target="_blank">
+                <TwitterIcon
+                  sx={{
+                    color: (theme) => theme.palette.grey.dark,
+                    fontSize: 40,
+                  }}
+                />
+              </Link>
+            </motion.div>
+            <motion.div
+              whileInView={{ scale: [0, 1], opacity: [0, 1] }}
+              transition={{ duration: 0.7 }}
+            >
+              <Link href={"mailto: " + about?.email} target="_blank">
+                <MailIcon
+                  sx={{
+                    color: (theme) => theme.palette.grey.dark,
+                    fontSize: 40,
+                  }}
+                />
+              </Link>
+            </motion.div>
           </Box>
-          <Button variant="contained" color="secondary" onClick={submitHandler} disabled={loading}>
-            {!loading ?  "Submit" : "Submitting.."}
-          </Button>
-        </Grid>
-        <Grid item display="flex" justifyContent="center" alignItems="center">
-          <motion.div variants={slideIn("right", "tween", 0.2, 1)} style={
-            {
-              height:"400px"
-            }
-          }>
-        <EarthCanvas/>
-        </motion.div>
-        </Grid>
-      </Grid>
+          <Typography
+            variant="p"
+            sx={{
+              color: (theme) => theme.palette.grey.main,
+            }}
+          >
+            Made with Love
+          </Typography>
+        </Box>
       </motion.div>
     </div>
   );
