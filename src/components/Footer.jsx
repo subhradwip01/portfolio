@@ -20,7 +20,26 @@ import success from '../assets/success.webp';
 import wrong from '../assets/wrong.png'
 import { motion } from "framer-motion";
 import { client } from "../client";
+import EarthCanvas from "./Models/Earth";
 
+const slideIn = (direction, type, delay, duration) => {
+  return {
+    hidden: {
+      x: direction === "left" ? "-100%" : direction === "right" ? "100%" : 0,
+      y: direction === "up" ? "100%" : direction === "down" ? "100%" : 0,
+    },
+    show: {
+      x: 0,
+      y: 0,
+      transition: {
+        type: type,
+        delay: delay,
+        duration: duration,
+        ease: "easeOut",
+      },
+    },
+  };
+};
 
 const Footer = ({mobileView}) => {
   const [data, setData] = useState({
@@ -169,7 +188,7 @@ const Footer = ({mobileView}) => {
         alignItems="center"
         paddingBottom={7}
       >
-        <Grid item>
+        {/* <Grid item>
         <motion.div whileInView={{ y:[100,0],opacity: [0,1] }}
           transition={{ duration: 0.4 }}>
           <Card
@@ -283,7 +302,8 @@ const Footer = ({mobileView}) => {
             </Link>
             </motion.div>
           </Box>
-        </Grid>
+        </Grid> */}
+        
         <Grid item>
           <Box
             display="flex"
@@ -344,6 +364,15 @@ const Footer = ({mobileView}) => {
           <Button variant="contained" color="secondary" onClick={submitHandler} disabled={loading}>
             {!loading ?  "Submit" : "Submitting.."}
           </Button>
+        </Grid>
+        <Grid item display="flex" justifyContent="center" alignItems="center">
+          <motion.div variants={slideIn("right", "tween", 0.2, 1)} style={
+            {
+              height:"400px"
+            }
+          }>
+        <EarthCanvas/>
+        </motion.div>
         </Grid>
       </Grid>
       </motion.div>
