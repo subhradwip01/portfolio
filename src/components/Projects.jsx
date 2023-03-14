@@ -54,6 +54,7 @@ const Projects = () => {
       allprojects.map((project) => {
         project.tags.includes(newValue) && sorted.push(project);
       });
+      console.log(sorted,newValue)
       setProjects(sorted);
     }, 500);
     setCurrentPage(1);
@@ -93,6 +94,7 @@ const Projects = () => {
             <Tab value="api" label="API" />
             <Tab value="mern" label="MERN" />
             <Tab value="web3" label="Web 3" />
+            <Tab value="3d" label="3D design" />
           </Tabs>
         </Box>
 
@@ -119,7 +121,7 @@ const Projects = () => {
                     sx={{
                       maxWidth: 300,
                       borderRadius: 3,
-                      height:500,
+                      height:600,
                       transition: "all 0.1s linear",
                       cursor: "pointer",
                       "&:hover": { transform: "scale(1.1)" },
@@ -144,7 +146,7 @@ const Projects = () => {
                         {project.description}
                       </Typography>
                       <Box display="flex" flexWrap="wrap" marginTop={3}>
-                        {project.tags.map((tech) => (
+                        {project.techStack.map((tech) => (
                           <Chip
                             label={tech}
                             variant="outlined"
