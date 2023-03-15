@@ -69,10 +69,8 @@ const Footer = ({ mobileView }) => {
 
   const submitHandler = (e) => {
     e.preventDefault();
-    console.log(data);
     setLoading(true);
-    console.log(loading);
-    if (data.email === "" || data.message === "") {
+    if (data.email === "" || data.message === "" || data.username === "") {
       setModal({
         open: true,
         type: wrong,
@@ -80,36 +78,35 @@ const Footer = ({ mobileView }) => {
       });
       setLoading(false);
     } else {
-      const contact = {
-        _type: "contact",
-        name: data.username,
-        email: data.email,
+      const email = {
+        to_name: "Subhradwip Kulavi",
+        to_email: about.email,
+        from_name: data.username,
+        from_email: data.email,
         message: data.message,
       };
 
-      client
-        .create(contact)
+      emailjs
+        .send(
+          process.env.REACT_APP_EMIALJS_SERVICE_ID,
+          process.env.REACT_APP_EMIALJS_TEMPLETE_ID,
+          email,
+          process.env.REACT_APP_EMIALJS_PUBLIC_KEY
+        )
         .then(() => {
+          setLoading(false);
           setModal({
             open: true,
             type: success,
-            message: "Thanks for sending message. I will connect with you ASAP",
+            message: "Thanks for contacting me! I will be with you ASAP",
           });
-          setData({
-            username: "",
-            email: "",
-            message: "",
-          });
-          setLoading(false);
         })
-        .catch((err) => {
-          console.log(err);
+        .catch(() => {
           setModal({
             open: true,
             type: wrong,
-            message: "Sorry! Unable to send message. Try Later",
+            message: "Please enter all the details!",
           });
-          setLoading(false);
         });
     }
   };
@@ -156,7 +153,7 @@ const Footer = ({ mobileView }) => {
             />
             <Typography
               textAlign="center"
-              variant="h5"
+              variant="p"
               marginTop={3}
               marginBottom={2}
               fontWeight={700}
@@ -188,6 +185,7 @@ const Footer = ({ mobileView }) => {
           justifyContent="space-around"
           alignItems="center"
           paddingBottom={7}
+          spacing={1}
         >
           {/* <Grid item>
         <motion.div whileInView={{ y:[100,0],opacity: [0,1] }}
@@ -467,7 +465,7 @@ const Footer = ({ mobileView }) => {
               color: (theme) => theme.palette.grey.main,
             }}
           >
-            Made with Love
+            Thanks For Exploring
           </Typography>
         </Box>
       </motion.div>
