@@ -41,7 +41,7 @@ const scaleVariants = {
 };
 const Header = ({ mobileView }) => {
   return (
-    <div id="#Home" style={{ marginTop: "70px" }}>
+    <div id="Home" style={{ marginTop: "70px" }}>
       <Grid
         container
         sx={{

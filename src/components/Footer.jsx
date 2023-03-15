@@ -114,7 +114,7 @@ const Footer = ({ mobileView }) => {
   const handleClose = () => setModal({ open: false, type: "", message: "" });
 
   return (
-    <div id="#Contact">
+    <div id="Contact">
       <Modal
         open={modal.open}
         onClose={handleClose}

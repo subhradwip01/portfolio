@@ -26,7 +26,7 @@ const About = () => {
 
   console.log(about)
   return (
-    <div id="#About">
+    <div id="About">
       <motion.div
           whileInView={{ y:[100,0],opacity: [0,1] }}
           transition={{ duration: 0.5 }}>

@@ -112,7 +112,7 @@ const Work = () => {
     });
   }, []);
   return (
-    <div id="#work">
+    <div id="Work">
       <motion.div
         whileInView={{ opacity: [0, 1], y: [100, 0] }}
         transition={{ duration: 0.4 }}

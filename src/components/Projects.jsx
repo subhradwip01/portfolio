@@ -62,7 +62,7 @@ const Projects = () => {
   };
 
   return (
-    <div id="#Projects">
+    <div id="Projects">
       <motion.div
         whileInView={{ y: [100, 0], opacity: [0, 1] }}
         transition={{ duration: 0.4 }}

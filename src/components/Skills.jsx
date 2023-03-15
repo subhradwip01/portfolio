@@ -13,7 +13,7 @@ const Skills = () => {
     })
   },[])
   return (
-    <div id="#Skills">
+    <div id="Skills" style={{marginTop:"20px"}}>
       <motion.div whileInView={{y:[100,0],opacity:[0,1]}} transition={{duration:0.3}}>
       <Typography
         variant="h3"
