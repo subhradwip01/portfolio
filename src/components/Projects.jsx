@@ -18,6 +18,7 @@ import LanguageIcon from "@mui/icons-material/Language";
 
 import { motion } from "framer-motion";
 import { urlFor, client } from "../client";
+import Tilt from "react-tilt";
 
 const Projects = () => {
   const NUMBER_OF_PROJECTS_PER_PAGE = 4;
@@ -54,7 +55,7 @@ const Projects = () => {
       allprojects.map((project) => {
         project.tags.includes(newValue) && sorted.push(project);
       });
-      console.log(sorted,newValue)
+      console.log(sorted, newValue);
       setProjects(sorted);
     }, 500);
     setCurrentPage(1);
@@ -84,8 +85,8 @@ const Projects = () => {
             aria-label="secondary project label"
             width="50%"
             sx={{
-              '& .MuiTabs-flexContainer': {
-                overflowX:"auto"
+              "& .MuiTabs-flexContainer": {
+                overflowX: "auto",
               },
             }}
           >
@@ -116,62 +117,73 @@ const Projects = () => {
                 }}
                 transition={{ duration: 0.5 + index / 3, ease: "easeInOut" }}
               >
-                <Grid item marginTop={5} display="flex" >
-                  <Card
-                    sx={{
-                      maxWidth: 300,
-                      borderRadius: 3,
-                      height:600,
-                      transition: "all 0.1s linear",
-                      cursor: "pointer",
-                      "&:hover": { transform: "scale(1.1)" },
-                    }}
-                  >
-                    <CardMedia
-                      component="img"
-                      alt="green iguana"
-                      width="100"
-                      image={urlFor(project.imgUrl)}
-                      borderRadius="10px"
+                <Tilt
+                  options={{
+                    max: 45,
+                    scale: 1,
+                    speed: 450,
+                  }}
+                >
+                  <Grid item marginTop={5} display="flex">
+                    <Card
                       sx={{
-                        padding: "20px 20px 0 20px",
-                        
+                        maxWidth: 300,
+                        borderRadius: 3,
+                        height: 600,
+                        transition: "all 0.1s linear",
+                        cursor: "pointer",
                       }}
-                    />
-                    <CardContent>
-                      <Typography variant="h5" fontWeight={700}>
-                        {project.title}
-                      </Typography>
-                      <Typography variant="p" marginTop={5} marginBottom={5} color="grey.main">
-                        {project.description}
-                      </Typography>
-                      <Box display="flex" flexWrap="wrap" marginTop={3}>
-                        {project.techStack.map((tech) => (
-                          <Chip
-                            label={tech}
-                            variant="outlined"
-                            color="secondary"
-                            sx={{ marginRight: 1.2, marginBottom: 1.2 }}
-                          />
-                        ))}
-                      </Box>
-                      <Box display="flex" flexWrap="wrap">
-                        <IconButton>
-                          <a href={project.codeLink} target="_blank">
-                            <GitHubIcon />
-                          </a>
-                        </IconButton>
-                        {project.projectLink && (
+                    >
+                      <CardMedia
+                        component="img"
+                        alt="green iguana"
+                        width="100"
+                        image={urlFor(project.imgUrl)}
+                        borderRadius="10px"
+                        sx={{
+                          padding: "20px 20px 0 20px",
+                        }}
+                      />
+                      <CardContent>
+                        <Typography variant="h5" fontWeight={700}>
+                          {project.title}
+                        </Typography>
+                        <Typography
+                          variant="p"
+                          marginTop={5}
+                          marginBottom={5}
+                          color="grey.main"
+                        >
+                          {project.description}
+                        </Typography>
+                        <Box display="flex" flexWrap="wrap" marginTop={3}>
+                          {project.techStack.map((tech) => (
+                            <Chip
+                              label={tech}
+                              variant="outlined"
+                              color="secondary"
+                              sx={{ marginRight: 1.2, marginBottom: 1.2 }}
+                            />
+                          ))}
+                        </Box>
+                        <Box display="flex" flexWrap="wrap">
                           <IconButton>
-                            <a href={project.projectLink} target="_blank">
-                              <LanguageIcon />
+                            <a href={project.codeLink} target="_blank">
+                              <GitHubIcon />
                             </a>
                           </IconButton>
-                        )}
-                      </Box>
-                    </CardContent>
-                  </Card>
-                </Grid>
+                          {project.projectLink && (
+                            <IconButton>
+                              <a href={project.projectLink} target="_blank">
+                                <LanguageIcon />
+                              </a>
+                            </IconButton>
+                          )}
+                        </Box>
+                      </CardContent>
+                    </Card>
+                  </Grid>
+                </Tilt>
               </motion.div>
             ))}
         </Grid>
