@@ -392,6 +392,7 @@ const Footer = ({ mobileView }) => {
             alignItems="center"
             gap={3}
             justifyContent="center"
+            
           >
             <motion.div
               whileInView={{ scale: [0, 1], opacity: [0, 1] }}

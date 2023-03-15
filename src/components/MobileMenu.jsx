@@ -57,8 +57,9 @@ const MobileMenu = () => {
     <Box
       sx={{
         position: "fixed",
-        bottom: "50px",
-        width: "100%",
+        bottom: "40px",
+        right:"-30px",
+        width: "20%",
         display: "flex",
         flexDirection: "column",
         alignItems: "flex-end",
