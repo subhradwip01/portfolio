@@ -9,8 +9,8 @@ import Footer from "./components/Footer";
 import MobileMenu from "./components/MobileMenu";
 import WifiLoader from "./components/WifiLoader";
 import {useState,useEffect} from "react"
-import { Canvas } from "@react-three/fiber";
-import ComputersCanvas from "./components/Models/Computers";
+
+
 function App() {
   const [mobileView,setMobileView] = useState(false);
   const [isLoading,setIsLoading]=useState(false);
