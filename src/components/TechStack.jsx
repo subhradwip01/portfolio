@@ -18,7 +18,6 @@ const TechStack = () => {
   useEffect(()=>{
     const query = '*[_type=="techStack"]';
     client.fetch(query).then(data=>{
-      console.log(data)
       setTechStack(data)
     })
   },[])

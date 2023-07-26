@@ -23,8 +23,6 @@ const About = () => {
    
     })
   },[])
-
-  console.log(about)
   return (
     <div id="About">
       <motion.div

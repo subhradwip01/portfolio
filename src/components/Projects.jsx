@@ -55,7 +55,6 @@ const Projects = () => {
       allprojects.map((project) => {
         project.tags.includes(newValue) && sorted.push(project);
       });
-      console.log(sorted, newValue);
       setProjects(sorted);
     }, 500);
     setCurrentPage(1);
@@ -129,7 +128,6 @@ const Projects = () => {
                       sx={{
                         maxWidth: 300,
                         borderRadius: 3,
-                        height: 600,
                         transition: "all 0.1s linear",
                         cursor: "pointer",
                       }}
@@ -139,46 +137,55 @@ const Projects = () => {
                         alt="green iguana"
                         width="100"
                         image={urlFor(project.imgUrl)}
-                        borderRadius="10px"
+                        borderRadius={1}
                         sx={{
-                          padding: "20px 20px 0 20px",
+                          padding: "12px 12px 0 12px",
                         }}
+                        
                       />
-                      <CardContent>
-                        <Typography variant="h5" fontWeight={700}>
+                      <CardContent style={{
+                          padding:"0 12px 14px 12px"
+                        }}>
+                        <Box display="flex" justifyContent="space-between" alignItems="center">
+                        <Typography variant="h5" fontWeight={600} fontSize={20}>
                           {project.title}
                         </Typography>
-                        <Typography
+                        <Box display="flex" flexWrap="wrap" py={1} gap={1}>
+                          
+                            <a href={project.codeLink} target="_blank">
+                              <GitHubIcon />
+                            </a>
+                        
+                          {project.projectLink && (
+                            
+                              <a href={project.projectLink} target="_blank">
+                                <LanguageIcon />
+                              </a>
+                          
+                          )}
+                        </Box>
+                        </Box>
+                        {<Typography
                           variant="p"
                           marginTop={5}
                           marginBottom={5}
                           color="grey.main"
+                          fontSize={15}
                         >
                           {project.description}
-                        </Typography>
-                        <Box display="flex" flexWrap="wrap" marginTop={3}>
+                        </Typography>}
+                        <Box display="flex" flexWrap="wrap" marginTop={1} gap={1}>
                           {project.techStack.map((tech) => (
                             <Chip
                               label={tech}
                               variant="outlined"
                               color="secondary"
-                              sx={{ marginRight: 1.2, marginBottom: 1.2 }}
+                              style={{
+                                height:"20px",
+                                fontSize:"10px",
+                              }}
                             />
                           ))}
-                        </Box>
-                        <Box display="flex" flexWrap="wrap">
-                          <IconButton>
-                            <a href={project.codeLink} target="_blank">
-                              <GitHubIcon />
-                            </a>
-                          </IconButton>
-                          {project.projectLink && (
-                            <IconButton>
-                              <a href={project.projectLink} target="_blank">
-                                <LanguageIcon />
-                              </a>
-                            </IconButton>
-                          )}
                         </Box>
                       </CardContent>
                     </Card>
